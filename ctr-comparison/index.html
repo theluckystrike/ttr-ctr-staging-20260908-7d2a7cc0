@@ -259,6 +259,8 @@ main>section.tool-section:first-of-type{padding-top:0;border-top:0}
 
 .footer-brand span{font-weight:400;letter-spacing:normal}
 .fr .l>p:nth-of-type(2){margin-top:8px}
+
+.tool-section table a{scroll-margin-inline:4px}
 </style></head><body><a class="skip" href="#main">Skip to content</a><div class="frame"><header><div class="in"><a class="brand" href="https://toolsthatrank.com/"><span aria-hidden="true" class="g">◈</span><span class="n">ToolsThatRank</span></a><nav aria-label="Primary" class="top"><a href="https://toolsthatrank.com/#tools">Tools</a><a aria-current="page" href="https://theluckystrike.github.io/ttr-ctr-staging-20260908-7d2a7cc0/ctr-comparison/">CTR comparison</a><a href="https://toolsthatrank.com/ctr-by-position/">Research</a></nav>
 </div>
 </header>
@@ -751,4 +753,20 @@ function initialize() {
 
 initialize();
 
-</script></body></html>
+</script>
+<script type="module" id="ttr-table-focus">
+// Keep focused source links visible inside horizontally scrollable tables.
+const comparisonPage = document.querySelector("main.ctr-comparison");
+comparisonPage?.addEventListener("focusin", (event) => {
+  const link = event.target;
+  if (!(link instanceof HTMLAnchorElement)) return;
+  const table = link.closest("table");
+  if (!table || table.scrollWidth <= table.clientWidth) return;
+  link.scrollIntoView({
+    block: "nearest",
+    inline: "nearest",
+    behavior: "instant",
+  });
+});
+</script>
+</body></html>
