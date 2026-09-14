@@ -543,6 +543,12 @@ function compareCounts(values) {
   const impression = defined ? ((li - ei) * (er + lr)) / 2 : null;
   const ctr = defined ? ((lr - er) * (ei + li)) / 2 : null;
   const output = { ei, ec, li, lc, er, lr, defined, pp, relative, net, impression, ctr };
+  validateComparison(output);
+  return output;
+}
+
+function validateComparison(output) {
+  const { ei, li, defined, er, lr, pp, relative, net, impression, ctr } = output;
   const numeric = [er, lr, pp, relative, net, impression, ctr];
   if (!numeric.every((value) => value === null || Number.isFinite(value))) {
     throw new Error("The calculation produced an unsupported numeric result.");
@@ -552,7 +558,6 @@ function compareCounts(values) {
   if (defined && Math.abs(impression + ctr - net) > tolerance) {
     throw new Error("The click components did not reconcile.");
   }
-  return output;
 }
 
 function renderHeading(preset) {
